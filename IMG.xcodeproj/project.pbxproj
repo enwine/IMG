@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2159F5FB13757E7A00E3F7D2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F5FA13757E7A00E3F7D2 /* main.cpp */; };
+		2159F60613757EA000E3F7D2 /* ImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F60213757EA000E3F7D2 /* ImageProcessor.cpp */; };
+		2159F60713757EA000E3F7D2 /* SeamCarvingTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,10 @@
 		2159F5F613757E7A00E3F7D2 /* IMG */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = IMG; sourceTree = BUILT_PRODUCTS_DIR; };
 		2159F5FA13757E7A00E3F7D2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2159F5FC13757E7A00E3F7D2 /* IMG.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = IMG.1; sourceTree = "<group>"; };
+		2159F60213757EA000E3F7D2 /* ImageProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageProcessor.cpp; sourceTree = "<group>"; };
+		2159F60313757EA000E3F7D2 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
+		2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeamCarvingTransform.cpp; sourceTree = "<group>"; };
+		2159F60513757EA000E3F7D2 /* SeamCarvingTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeamCarvingTransform.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,10 @@
 			isa = PBXGroup;
 			children = (
 				2159F5FA13757E7A00E3F7D2 /* main.cpp */,
+				2159F60213757EA000E3F7D2 /* ImageProcessor.cpp */,
+				2159F60313757EA000E3F7D2 /* ImageProcessor.h */,
+				2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */,
+				2159F60513757EA000E3F7D2 /* SeamCarvingTransform.h */,
 				2159F5FC13757E7A00E3F7D2 /* IMG.1 */,
 			);
 			path = IMG;
@@ -115,6 +125,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2159F5FB13757E7A00E3F7D2 /* main.cpp in Sources */,
+				2159F60613757EA000E3F7D2 /* ImageProcessor.cpp in Sources */,
+				2159F60713757EA000E3F7D2 /* SeamCarvingTransform.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
