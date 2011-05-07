@@ -6,8 +6,8 @@
 using namespace std; 
 using namespace Magick;
 
-ImageProcessor::ImageProcessor(Image * imageInput) {
-	imageHandler = imageInput;
+ImageProcessor::ImageProcessor() {
+	imageHandler = new Image("temp.png");
 	pixelValues = NULL;
 	pixelEnergies = NULL;
 	pixelAccumuledEnergies = NULL;
@@ -15,47 +15,70 @@ ImageProcessor::ImageProcessor(Image * imageInput) {
 }
 
 ImageProcessor::~ImageProcessor() {
-	delete imageHandler;
 	clean();
 }
 
 void ImageProcessor::addCols(unsigned long amount) {
-	// empty by now
-}
-
-void ImageProcessor::removeCols(unsigned long amount) {
-		
-	Geometry geom(cols-1,rows);
+	Geometry geom(cols+1, rows);
 	Image im(geom,"white");
 	
 	int * path = optimalPath();
 	
-	int colRemoved = 0;											//ivp es el indice para recorrer el array del camino, es decir path
-	for (int i=0; i<rows; i++){					//colRemoved indica si ya hemos eliminado la columna en la fila en la que estamos
+	int colAdded = 0;
+	for (int i=0; i<rows; i++){
+		colAdded = 0;
+		for (int j=0; j<cols; j++){
+			Color col = imageHandler->pixelColor(j, i);
+			im.pixelColor(j+colAdded, i, col);
+			if (j == path[i]) {
+				colAdded++;
+				Color col = imageHandler->pixelColor(j, i);
+				im.pixelColor(j+colAdded, i, col);
+			}
+		}
+	}
+	
+	imageHandler = &im;
+	processImage();
+	
+	if (amount > 1) {
+		addCols(amount-1);
+	} else {
+		im.write("temp.png");
+	}	
+}
+
+void ImageProcessor::removeCols(unsigned long amount) {		
+	Geometry geom(cols-1, rows);
+	Image im(geom,"white");
+	
+	int * path = optimalPath();
+	
+	int colRemoved = 0;
+	for (int i=0; i<rows; i++){
 		colRemoved = 0;
 		for (int j=0; j<cols; j++){
 			if (j == path[i]) {
 				colRemoved++;
 			} else {
-				Color color = imageHandler->pixelColor(i, j);		//col sera el Color del pixel que hay en la posicion (j,i)
-				im.pixelColor(i+colRemoved, j, color);
+				Color col = imageHandler->pixelColor(j, i);
+				im.pixelColor(j-colRemoved, i, col);
 			}
 		}
-	}	
+	}
 	
-	delete path;
-	delete imageHandler;
 	imageHandler = &im;
 	processImage();
 	
 	if (amount > 1) {
 		removeCols(amount-1);
+	} else {
+		im.write("temp.png");
 	}
-	
 }
 
-Image* ImageProcessor::getImage() {
-	return imageHandler;
+Image ImageProcessor::getImage() {
+	return *imageHandler;
 }
 void ImageProcessor::clean() {
 	delete [] pixelValues;
@@ -122,7 +145,7 @@ float ImageProcessor::getPixelEnergyAt(int i, int j) {
 }
 float ImageProcessor::getPixelAccumuledEnergyAt(int i, int j) {
 	if (j < 0 || j >= cols) {
-		return 999; //we return a value over 255, which is the max energy, and then this energy won't be selected.
+		return 99999; //we return a value over 255, which is the max energy, and then this energy won't be selected.
 	}
 	if (i < 0) {
 		return 0;

@@ -4,5 +4,5 @@
 
 void SeamCarvingTransform(char * inputFile,
 						  char * outputFile,
-						  unsigned long outputWidth,
-						  unsigned long outputHeight);
+						  int changeX,
+							int changeY);

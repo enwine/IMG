@@ -2,38 +2,42 @@
 
 void SeamCarvingTransform(char * inputFile,
 						  char * outputFile,
-						  unsigned long outputWidth,
-						  unsigned long outputHeight) {
+						  int	changeX,
+						  int changeY) {
 	
-	Magick::Image * myImageHandler;
-	myImageHandler = (Magick::Image*) malloc(sizeof(Magick::Image));
-	*myImageHandler = Magick::Image(inputFile);
-	
-	if (myImageHandler->columns() > outputWidth) {
-		ImageProcessor myImageProcessor(myImageHandler);
-		myImageProcessor.removeCols( myImageHandler->columns() - outputWidth );
-		myImageHandler = myImageProcessor.getImage();
-	} else if (myImageHandler->columns() < outputWidth) {
-		ImageProcessor myImageProcessor(myImageHandler);
-		myImageProcessor.removeCols( outputWidth - myImageHandler->columns() );
-		myImageHandler = myImageProcessor.getImage();
+	Magick::Image myImageHandler(inputFile);
+	myImageHandler.write("temp.png");
+
+	if (changeX > 0) {
+		ImageProcessor myImageProcessor;
+		myImageProcessor.addCols( changeX );
+	} else if (changeX < 0) {
+		ImageProcessor myImageProcessor;
+		myImageProcessor.removeCols( changeX*-1 );
 	}
 
-	if (myImageHandler->rows() > outputHeight) {
-		myImageHandler->rotate(90);
-		ImageProcessor myImageProcessor(myImageHandler);
-		myImageProcessor.removeCols( myImageHandler->rows() - outputHeight );
-		myImageHandler = myImageProcessor.getImage();
-		myImageHandler->rotate(-90);
-	} else if (myImageHandler->rows() < outputHeight) {
-		myImageHandler->rotate(90);
-		ImageProcessor myImageProcessor(myImageHandler);
-		myImageProcessor.removeCols( outputHeight - myImageHandler->rows() );
-		myImageHandler = myImageProcessor.getImage();
-		myImageHandler->rotate(-90);
+	if (changeY != 0) {
+		Magick::Image img("temp.png");
+		img.rotate(90);
+		img.write("temp.png");
 	}
 	
-	myImageHandler->write(outputFile);
-	delete myImageHandler;
+	if (changeY > 0) {
+		ImageProcessor myImageProcessor;
+		myImageProcessor.addCols( changeY );
+	} else if (changeY < 0) {
+		ImageProcessor myImageProcessor;
+		myImageProcessor.removeCols( changeY*-1 );
+	}
+	
+	if (changeY != 0) {
+		Magick::Image img("temp.png");
+		img.rotate(-90);
+		img.write("temp.png");
+	}
+
+	Magick::Image outputImageHandler("temp.png");
+	outputImageHandler.write(outputFile);
+	remove("temp.png");
 	
 }

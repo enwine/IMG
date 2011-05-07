@@ -5,12 +5,12 @@
 class ImageProcessor {
 	
 public:
-	ImageProcessor(Magick::Image *);
+	ImageProcessor();
 	~ImageProcessor();
 	void addCols(unsigned long);
 	void removeCols(unsigned long);
 	void removeRows(unsigned long);
-	Magick::Image* getImage();
+	Magick::Image getImage();
 	
 private:	
 	void clean();
