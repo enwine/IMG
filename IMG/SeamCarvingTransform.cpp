@@ -1,11 +1,3 @@
-//
-//  SeamCarvingTransform.cpp
-//  resizing
-//
-//  Created by enwine on 4/18/11.
-//  Copyright 2011 Universitat Pompeu Fabra. All rights reserved.
-//
-
 #include "SeamCarvingTransform.h"
 
 void SeamCarvingTransform(char * inputFile,
@@ -13,37 +5,35 @@ void SeamCarvingTransform(char * inputFile,
 						  unsigned long outputWidth,
 						  unsigned long outputHeight) {
 	
-	std::cout << "This process may last several minutes ..." << std::endl;
+	Magick::Image * myImageHandler;
+	myImageHandler = (Magick::Image*) malloc(sizeof(Magick::Image));
+	*myImageHandler = Magick::Image(inputFile);
 	
-	Magick::Image myImageHandler(inputFile);
-	std::cout << "Evaluating image data ..." << std::endl;
-	ImageProcessor myImageProcessor(&myImageHandler);
-	
-	std::cout << "Transforming ... \n";
-	// Columns transformation
-	std::cout << "  - Columns ...";
-	if (myImageHandler.columns() > outputWidth) {
-		myImageProcessor.removeCols( myImageHandler.columns() - outputWidth );
-	} else if (myImageHandler.columns() < outputWidth) {
-		myImageProcessor.addCols( outputWidth - myImageHandler.columns() );
+	if (myImageHandler->columns() > outputWidth) {
+		ImageProcessor myImageProcessor(myImageHandler);
+		myImageProcessor.removeCols( myImageHandler->columns() - outputWidth );
+		myImageHandler = myImageProcessor.getImage();
+	} else if (myImageHandler->columns() < outputWidth) {
+		ImageProcessor myImageProcessor(myImageHandler);
+		myImageProcessor.removeCols( outputWidth - myImageHandler->columns() );
+		myImageHandler = myImageProcessor.getImage();
 	}
-	std::cout << " transformed." << std::endl;
-	
-	// Rows transformation
-	std::cout << "  - Rows ...";
-	if (myImageHandler.rows() > outputHeight) {
-		myImageProcessor.removeRows( myImageHandler.rows() - outputHeight );
-	} else if (myImageHandler.rows() < outputHeight) {
-		myImageProcessor.addRows( outputHeight - myImageHandler.rows() );
+
+	if (myImageHandler->rows() > outputHeight) {
+		myImageHandler->rotate(90);
+		ImageProcessor myImageProcessor(myImageHandler);
+		myImageProcessor.removeCols( myImageHandler->rows() - outputHeight );
+		myImageHandler = myImageProcessor.getImage();
+		myImageHandler->rotate(-90);
+	} else if (myImageHandler->rows() < outputHeight) {
+		myImageHandler->rotate(90);
+		ImageProcessor myImageProcessor(myImageHandler);
+		myImageProcessor.removeCols( outputHeight - myImageHandler->rows() );
+		myImageHandler = myImageProcessor.getImage();
+		myImageHandler->rotate(-90);
 	}
-	std::cout << " transformed." << std::endl;
 	
-	// Pending! An interlaced implementation when performing operation in both 
-	// axis (x, y).
-	
-	std::cout << "Printing image ..." << std::endl;
-	myImageHandler.write(outputFile);
-	
-	std::cout << "Process finished." << std::endl;
+	myImageHandler->write(outputFile);
+	delete myImageHandler;
 	
 }

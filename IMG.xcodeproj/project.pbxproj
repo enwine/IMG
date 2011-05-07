@@ -10,6 +10,7 @@
 		2159F5FB13757E7A00E3F7D2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F5FA13757E7A00E3F7D2 /* main.cpp */; };
 		2159F60613757EA000E3F7D2 /* ImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F60213757EA000E3F7D2 /* ImageProcessor.cpp */; };
 		2159F60713757EA000E3F7D2 /* SeamCarvingTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */; };
+		2159F60A13758ADA00E3F7D2 /* libMagick++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2159F60913758ADA00E3F7D2 /* libMagick++.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		2159F60313757EA000E3F7D2 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeamCarvingTransform.cpp; sourceTree = "<group>"; };
 		2159F60513757EA000E3F7D2 /* SeamCarvingTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeamCarvingTransform.h; sourceTree = "<group>"; };
+		2159F60813758ACC00E3F7D2 /* libMagick++.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "libMagick++.la"; path = "../../../../../../../../../opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib/libMagick++.la"; sourceTree = "<group>"; };
+		2159F60913758ADA00E3F7D2 /* libMagick++.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMagick++.a"; path = "../../../../../../../../../opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib/libMagick++.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2159F60A13758ADA00E3F7D2 /* libMagick++.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +74,8 @@
 				2159F60413757EA000E3F7D2 /* SeamCarvingTransform.cpp */,
 				2159F60513757EA000E3F7D2 /* SeamCarvingTransform.h */,
 				2159F5FC13757E7A00E3F7D2 /* IMG.1 */,
+				2159F60913758ADA00E3F7D2 /* libMagick++.a */,
+				2159F60813758ACC00E3F7D2 /* libMagick++.la */,
 			);
 			path = IMG;
 			sourceTree = "<group>";
@@ -168,10 +174,15 @@
 		2159F60013757E7A00E3F7D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				HEADER_SEARCH_PATHS = "/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/include/ImageMagick/**";
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib/**",
+					"\"/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -179,10 +190,15 @@
 		2159F60113757E7A00E3F7D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				HEADER_SEARCH_PATHS = "/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/include/ImageMagick/**";
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib/**",
+					"\"/opt/local/var/macports/software/ImageMagick/6.6.9-1_1+q16/opt/local/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
